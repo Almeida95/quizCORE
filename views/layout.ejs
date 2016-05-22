@@ -27,6 +27,42 @@
         <a href="/author"> Créditos</a>
       </nav>
 
+      <section>
+
+        <% if(messages.info) { %>
+          <article id='flashinfo'>
+            <h3>Información de interés:</h3>
+            <ul>
+              <% for (var i in messages.info) { %>
+                <li> <%=messages.info[i] %> </li>
+                <% } %>
+              </ul>
+          </article>  
+        <% } %>
+
+        <% if (messages.succes) { %>
+          <article id ='flashsucces'>
+            <h3>Treas completadas con éxito:</h3>
+              <ul>
+                <% for (var i in messages.succes) { %>
+                  <li> <%=messages.succes[i] %></li>
+                <% } %>
+              </ul>
+          </article>  
+        <% } %>
+
+        <% if (messages.error) { %>
+          <article id ='flasherror'>
+            <h3>Errores encontrados:</h3>
+              <ul>
+                <% for (var i in messages.error) { %>
+                  <li> <%=messages.error[i] %></li>
+                <% } %>
+              </ul>
+          </article>  
+        <% } %>
+      </section>      
+
       <section class="main">
         <div> 
           <%- body %> 
@@ -34,7 +70,7 @@
       </section>
 
       <footer class="main">
-        <a href="http://es.wikipedia.org/eiki">¿Qué es un Quiz?</a> <br>
+        <a href="http://es.wikipedia.org/wiki/Quiz">¿Qué es un Quiz?</a> <br>
         <a href="https://github.com/Almeida95/quiz">Proyecto en Github</a>
       </footer>
       </div>
