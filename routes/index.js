@@ -14,7 +14,7 @@ router.param('quizId',quizController.load);  //autoload:quizId
 
 //GET creditos
 router.get('/author', function(req, res, next) {
-res.render('author',{title:'autor'});
+res.render('author');
 });
 
 router.get('/quizzes',                     	quizController.index);
@@ -22,9 +22,9 @@ router.get('/quizzes/:quizId(\\d+)',       	quizController.show);
 router.get('/quizzes/:quizId(\\d+)/check', 	quizController.check);
 router.get('/quizzes/new',                  quizController.new);
 router.post('/quizzes',                     quizController.create);
-router.get('/quizzes/:quizId(\\d+)/edit',  quizController.edit);
-router.put('/quizzes/:quizId(\\d+)',       quizController.update);
-
+router.get('/quizzes/:quizId(\\d+)/edit',   quizController.edit);
+router.put('/quizzes/:quizId(\\d+)',        quizController.update);
+router.delete('/quizzes/:quizId(\\d+)',      quizController.destroy);
   
 
 module.exports = router;

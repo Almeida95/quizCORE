@@ -88,7 +88,7 @@ exports.edit = function(req, res, next) {
 };
 
 // PUT /quizzes/:id
- exports.update = function(req, res, next) {
+exports.update = function(req, res, next) {
  
   req.quiz.question = req.body.quiz.question;
   req.quiz.answer   = req.body.quiz.answer;
@@ -113,6 +113,19 @@ exports.edit = function(req, res, next) {
     });
 };
 
+//DELETE /quizzes/:id
+
+exports.destroy = function(req,res,next){
+  req.quiz.destroy()
+  .then( function(){
+    req.flash('success', 'Quiz borrado con éxito.');
+    res.redirect('/quizzes');
+  })
+  .catch(function(error){
+    req.flash('error', 'Error al editar el Quiz: '+error.message);
+    next(error);
+  });
+};
 
 
 
