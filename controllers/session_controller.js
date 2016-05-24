@@ -31,7 +31,7 @@ exports.create = function(req, res, next) {
     .then(function(user){
         if(user){
 
-	        req.session.user = {id:user.id, username:user.username};
+	        req.session.user = {id:user.id, username:user.username, isAdmin:user.isAdmin};
 	        res.redirect(redir);
 		} else{
             req.flash('error', 'La autenticación ha fallado. Reinténtalo otra vez.');
@@ -53,10 +53,10 @@ exports.destroy = function(req, res, next) {
     res.redirect("/session"); // redirect a login
 };
 
-exports.loginRequired = function(req,res,next){
-    if(req.session.user){
+exports.loginRequired = function (req, res, next) {
+    if (req.session.user) {
         next();
-    }  else {
+    } else {
         res.redirect('/session?redir=' + (req.param('redir') || req.url));
     }
 };

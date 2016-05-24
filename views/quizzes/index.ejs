@@ -7,6 +7,8 @@
         </td>
 
         <% if (session.user){ %>
+           <% if (session.user.isAdmin || session.user.id === quizzes[i].AuthorId) { %>}
+
         <td>
            <a href="/quizzes/<%= quizzes[i].id %>/edit"><button>Editar</button></a>
         </td>
@@ -17,6 +19,7 @@
             </a>
         </td>
       <% } %>
+    <% } %>
 
      </tr> 
     <% } %>
