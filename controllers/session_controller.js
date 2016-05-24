@@ -15,7 +15,7 @@ var authenticate = function(login, password) {
 
 // GET /session   -- Formulario de login
 exports.new = function(req, res, next) {
-    res.render('session/new');
+    res.render('session/new', {redir:req.query.redir || '/'});
 };
 
 
@@ -32,7 +32,7 @@ exports.create = function(req, res, next) {
         if(user){
 
 	        req.session.user = {id:user.id, username:user.username};
-	        res.redirect("/");
+	        res.redirect(redir);
 		} else{
             req.flash('error', 'La autenticación ha fallado. Reinténtalo otra vez.');
             res.redirect("/session?redir="+redir);
@@ -40,7 +40,7 @@ exports.create = function(req, res, next) {
     })
 		.catch(function(error) {
             req.flash('error', 'Se ha producido un error: ' + error);
-            res.redirect("/session");        
+            res.redirect("/session?redir="+redir);        
     });
 };
 
@@ -51,4 +51,12 @@ exports.destroy = function(req, res, next) {
     delete req.session.user;
     
     res.redirect("/session"); // redirect a login
+};
+
+exports.loginRequired = function(req,res,next){
+    if(req.session.user){
+        next();
+    }  else {
+        res.redirect('/session?redir=' + (req.param('redir') || req.url));
+    }
 };
