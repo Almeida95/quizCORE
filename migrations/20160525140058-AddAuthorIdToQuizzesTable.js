@@ -12,3 +12,4 @@ module.exports = {
       return queryInterface.removeColumn('Quizzes','AuthorId');
   }
 };
+

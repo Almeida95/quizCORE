@@ -12,7 +12,7 @@
       <% if (session.user) { %>
         <td>
           <% if (session.user.isAdmin || session.user.id === users[i].id) { %>
-            <a href="/users/"<%=users[i].id %>/edit"><button>editar</button></a>
+            <a href="/users/<%=users[i].id %>/edit"><button>editar</button></a>
           <% } %>
         </td>
         <td>

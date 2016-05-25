@@ -64,13 +64,13 @@ router.get('/users/:userId(\\d+)',      userController.show);    // ver un usuar
 router.get('/users/new',                userController.new);     // crear usuario
 router.post('/users',                   userController.create);  // registrar usuario
 router.get('/users/:userId(\\d+)/edit', sessionController.loginRequired, 
-										userController.ownershipRequired, 
+										sessionController.adminOrMyselfRequired, 
 										userController.edit);     // editar información de cuenta
 router.put('/users/:userId(\\d+)',      sessionController.loginRequired, 
-										userController.ownershipRequired, 
+										sessionController.adminOrMyselfRequired, 
 										userController.update);   // actualizar información de cuenta
 router.delete('/users/:userId(\\d+)',   sessionController.loginRequired, 
-										userController.ownershipRequired, 
+										sessionController.adminAndNotMyselfRequired, 
 										userController.destroy);  // borrar cuenta
 
 
