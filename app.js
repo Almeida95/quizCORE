@@ -38,6 +38,7 @@ app.use(flash());
 //helper dinámico:
 app.use(function(req,res,next){
   res.locals.session=req.session;
+  res.locals.url = req.url;
   next();
 });
 
