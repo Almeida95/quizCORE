@@ -11,8 +11,8 @@ var cloudinary_image_options = { crop: 'limit', width: 200, height: 200, radius:
 
 // Autoload el quiz asociado a :quizId
 exports.load = function(req, res, next, quizId) {
-  models.Quiz.findById(quizId, { include: [ models.Comment, models.Attachment ] })
-      .then(function(quiz) {
+  models.Quiz.findById(quizId, {include: [{model:models.Attachment}, {model:models.Comment, include:[{model:models.User, as:'Author'}]}]})
+        .then(function(quiz) {
           if (quiz) {
             req.quiz = quiz;
             next();
@@ -44,9 +44,9 @@ exports.ownershipRequired = function(req, res, next){
 exports.index = function(req, res, next) {
 
   if(req.query.search){
-    var search = req.query.search.split("");
-     search ="%" + search.join("%") + "%";
-     models.Quiz.findAll({ include: [ models.Attachment ] })
+    var search = req.query.search.split(' ');
+     search = '%' + search.join('%') + '%';
+     models.Quiz.findAll({where: ['question like ?', search], include: [ models.Attachment ] })
     .then(function(quizzes) {
       res.render('quizzes/index.ejs', { quizzes: quizzes});
     })
@@ -91,7 +91,7 @@ exports.show = function(req, res, next) {
     });
   }
   else {
-    models.Quiz.findAll()
+    models.Quiz.findById(req.params.quizId)
     .then(function(quiz){
       if(quiz){
         var answer = req.query.answer || '';

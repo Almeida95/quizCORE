@@ -2,7 +2,7 @@
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-      return  queryInterface.addColumn( 'Quizzes', 
+      return queryInterface.addColumn( 'Quizzes', 
                                         'AuthorId', 
                                         { type: Sequelize.INTEGER }
                                       );

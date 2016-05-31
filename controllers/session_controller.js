@@ -31,7 +31,9 @@ exports.create = function(req, res, next) {
     .then(function(user){
         if(user){
 
-	        req.session.user = {id:user.id, username:user.username, isAdmin:user.isAdmin};
+            var t_sesión=Date.now() +120000
+
+	        req.session.user = {id:user.id, username:user.username, isAdmin:user.isAdmin, finish:t_sesión};
 	        res.redirect(redir);
 		} else{
             req.flash('error', 'La autenticación ha fallado. Reinténtalo otra vez.');
@@ -85,4 +87,23 @@ exports.adminAndNotMyselfRequired = function(req, res, next){
     } else {
       console.log('Ruta prohibida: no es el usuario logeado, ni un administrador.');
       res.send(403);    }
+};
+
+exports.autologout = function(req, res, next){
+    if(req.session.user){
+        var ya = Date.now();
+
+        if(req.session.user.finish>= ya){  
+            req.session.user.finish = ya +120000; //Le renueva dos minutos más
+            next(); //Atiende el siguiente MW
+        }
+
+        else{
+            delete req.session.user; //Destruye la sesión
+            res.redirect("/session");
+        }
+    }
+    else{
+        next();
+    }
 };
