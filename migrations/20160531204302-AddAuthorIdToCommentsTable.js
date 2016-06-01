@@ -7,7 +7,7 @@ module.exports = {
                                         { type: Sequelize.INTEGER,
                                         	defaultValue:0, 
                                         	allowNull:false
-                                      );
+                                      });
   },
 
   down: function (queryInterface, Sequelize) {
