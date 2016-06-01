@@ -5,8 +5,8 @@ module.exports = {
       return  queryInterface.addColumn( 'Comments', 
                                         'AuthorId', 
                                         { type: Sequelize.INTEGER,
-                                         defaultValue:false, 
-                                         allowNull:false}
+                                        	defaultValue:0, 
+                                        	allowNull:false
                                       );
   },
 
